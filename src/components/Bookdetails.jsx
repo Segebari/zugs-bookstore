@@ -52,11 +52,11 @@ function Bookdetails() {
     );
 
   return (
-    <div className="w-full min-h-screen bg-primary text-white pt-28 pb-16">
+    <div className="w-full min-h-screen bg-primary text-white pt-20 sm:pt-28 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-primary rounded-3xl p-8 shadow-2xl">
-          <div className="flex flex-col lg:flex-row gap-12">
-            <div className="lg:w-1/3">
+        <div className="bg-primary rounded-3xl p-4 sm:p-8 shadow-2xl">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            <div className="w-full lg:w-1/3">
               <img
                 src={book.image}
                 alt={book.title}
@@ -67,32 +67,40 @@ function Bookdetails() {
                 }}
               />
             </div>
-            <div className="lg:w-2/3 space-y-6">
-              <h1 className="text-4xl font-bold mb-2">{book.title}</h1>
-              <p className="text-xl italic">By {book.author}</p>
+            <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+                {book.title}
+              </h1>
+              <p className="text-lg sm:text-xl italic">By {book.author}</p>
               <div className="flex items-center space-x-2">
                 <StarRating />
                 <span className="text-sm">(4.5 out of 5)</span>
               </div>
               <div className="space-y-4">
                 <div>
-                  <h2 className="text-2xl font-semibold mb-2">Synopsis</h2>
-                  <p className="text-lg leading-relaxed">{book.synopsis}</p>
+                  <h2 className="text-xl sm:text-2xl font-semibold mb-2">
+                    Synopsis
+                  </h2>
+                  <p className="text-base sm:text-lg leading-relaxed">
+                    {book.synopsis}
+                  </p>
                 </div>
-                <div className="flex flex-wrap gap-4">
-                  <div className="bg-white/20 px-4 py-2 rounded-full">
+                <div className="flex flex-wrap gap-2 sm:gap-4">
+                  <div className="bg-white/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base">
                     <span className="font-semibold">Language:</span>{" "}
                     {book.language}
                   </div>
-                  <div className="bg-white/20 px-4 py-2 rounded-full">
+                  <div className="bg-white/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base">
                     <span className="font-semibold">Published:</span>{" "}
                     {book.publisheddate}
                   </div>
                 </div>
               </div>
               <div>
-                <h2 className="text-2xl font-semibold mb-2">Description</h2>
-                <p className="text-lg leading-relaxed">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-2">
+                  Description
+                </h2>
+                <p className="text-base sm:text-lg leading-relaxed">
                   {book.bookDescription}
                 </p>
               </div>

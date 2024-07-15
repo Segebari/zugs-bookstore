@@ -41,9 +41,9 @@ function Bookdisplay({ index }) {
   };
 
   return (
-    <div className="w-auto h-[21rem] bg-white flex items-center">
-      <div className="flex left-[-5rem] relative">
-        <div className="w-[40%] relative">
+    <div className="w-full h-auto sm:h-[21rem] bg-white flex items-center p-4 sm:p-0">
+      <div className="flex flex-col sm:flex-row w-full sm:left-[-5rem] relative">
+        <div className="w-full sm:w-[40%] h-64 sm:h-auto mb-4 sm:mb-0 relative">
           <img
             src={book.image}
             alt={book.title}
@@ -54,11 +54,17 @@ function Bookdisplay({ index }) {
             }}
           />
         </div>
-        <div className="w-[60%] p-4">
-          <h3 className="text-3xl font-medium mb-5  ">{book.title}</h3>
-          <p className="text-gray-600 text-base mb-2">By {book.author}</p>
+        <div className="w-full sm:w-[60%] p-4">
+          <h3 className="text-2xl sm:text-3xl font-medium mb-3 sm:mb-5">
+            {book.title}
+          </h3>
+          <p className="text-gray-600 text-sm sm:text-base mb-2">
+            By {book.author}
+          </p>
           <StarRating />
-          <p className="text-base text-gray-500">{book.bookDescription}</p>
+          <p className="text-sm sm:text-base text-gray-500 mb-3 line-clamp-3 sm:line-clamp-none">
+            {book.bookDescription}
+          </p>
           <button
             className="w-full border py-2 mt-3 rounded-xl border-primary font-bold text-primary hover:bg-primary hover:text-white"
             onClick={handleDetailsClick}
