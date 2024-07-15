@@ -14,7 +14,7 @@ function Navigation({ user }) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-white font-bold">
-              Home
+              BOOKHIVE
             </Link>
           </div>
           <div className="flex items-center">
