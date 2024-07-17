@@ -3,6 +3,7 @@ import { db } from "./firebase";
 import { collection, getDocs, limit } from "firebase/firestore";
 import StarRating from "./StarRating";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Bookdisplay() {
   const [books, setBooks] = useState([]);
@@ -13,12 +14,12 @@ function Bookdisplay() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "books"), limit(8));
+        const querySnapshot = await getDocs(collection(db, "books"), limit(4));
         const bookList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setBooks(bookList);
+        setBooks([...bookList, ...bookList]);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching books:", err);
@@ -32,17 +33,19 @@ function Bookdisplay() {
 
   if (loading)
     return (
-      <div className="text-center text-2xl font-semibold py-20">Loading...</div>
+      <div className="text-center text-xl font-semibold py-10 text-orange-500">
+        Loading...
+      </div>
     );
   if (error)
     return (
-      <div className="text-center text-2xl text-red-500 font-semibold py-20">
+      <div className="text-center text-xl text-orange-500 font-semibold py-10">
         {error}
       </div>
     );
   if (books.length === 0)
     return (
-      <div className="text-center text-2xl font-semibold py-20">
+      <div className="text-center text-xl font-semibold py-10 text-orange-500">
         No books found.
       </div>
     );
@@ -52,44 +55,42 @@ function Bookdisplay() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-      {books.map((book) => (
-        <div
-          key={book.id}
-          className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      {books.map((book, index) => (
+        <motion.div
+          key={`${book.id}-${index}`}
+          className="relative overflow-hidden group bg-white rounded-lg shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.05 }}
         >
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-2/5">
-              <img
-                src={book.image}
-                alt={book.title}
-                className="w-full h-64 md:h-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://via.placeholder.com/150";
-                }}
-              />
-            </div>
-            <div className="md:w-3/5 p-6 flex flex-col justify-between">
-              <div>
-                <h3 className="text-2xl font-bold mb-2 text-gray-800">
-                  {book.title}
-                </h3>
-                <p className="text-gray-600 mb-2">By {book.author}</p>
-                <StarRating className="mb-4" />
-                <p className="text-gray-700 mb-4 line-clamp-3">
-                  {book.bookDescription}
-                </p>
-              </div>
+          <div className="aspect-[2/3] overflow-hidden">
+            <img
+              src={book.image}
+              alt={book.title}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/150";
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-orange-500 via-orange-500/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-0 left-0 right-0 p-2 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <h3 className="text-xs lg:text-lg font-bold mb-0.5 truncate">
+                {book.title}
+              </h3>
+              <p className="text-xs lg:text-base mb-1 truncate">By {book.author}</p>
+              <StarRating className="mb-1" />
               <button
-                className="border border-orange-500 text-orange-500 py-2 px-4 rounded-full font-semibold hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                className="w-full bg-white text-orange-500 py-1 px-2 rounded-full text-xs font-semibold hover:bg-orange-100 transition-colors duration-300"
                 onClick={() => handleDetailsClick(book.id)}
               >
-                View Details
+                Explore
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
