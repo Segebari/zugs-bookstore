@@ -82,7 +82,7 @@ function Bookdisplay() {
                 </p>
               </div>
               <button
-                className="bg-orange-500 text-white py-2 px-4 rounded-full font-semibold hover:bg-orange-600 transition-colors duration-300"
+                className="border border-orange-500 text-orange-500 py-2 px-4 rounded-full font-semibold hover:bg-orange-500 hover:text-white transition-colors duration-300"
                 onClick={() => handleDetailsClick(book.id)}
               >
                 View Details
